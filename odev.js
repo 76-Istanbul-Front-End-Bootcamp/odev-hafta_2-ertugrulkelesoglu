@@ -10,7 +10,7 @@ var person = {
   }
 }
 
-var messageFunc = person.message
+var messageFunc = person.message.bind(person)
 messageFunc();
 
 
@@ -28,7 +28,7 @@ var numbers = {
     this.numbers[0].map(function(number, numberIndex){
         const result = number * this.numbers[1];
         console.log(result)
-    })
+    }.bind(this))
   }
 };
 
@@ -43,8 +43,23 @@ numbers.multiply();
   Ornek : isValidName(" J ohn") false donmeli
 */
 function isValidName(name){
+var trimmedStr= name.trim();
+var splitByWhitespace = trimmedStr.split(" ");
+var letters = /^[A-Za-z]+$/;
 
+ for(var i=0; i < splitByWhitespace.length; i++){
+    
+    if(!letters.test(splitByWhitespace[i])){
+      console.log(false);
+    }
+   else{
+      console.log(true);
+    }}
+  
 }
+isValidName("John Doe") //Burada isim sayısı kadar true dönme problemini çözemedim?
+
+  
 
 /*
   Odev 4:
@@ -58,8 +73,24 @@ function isValidName(name){
   Ornek: katilimSaati("3", 20) 60 sonucunu vermelidir.
   Ornek: katilimSaati("5", "30") 150 sonucunu vermelidir.
 */
-function katilimSaati(dersSayisi, dersSuresi){
-
+  function katilimSaati(dersSayisi, dersSuresi){
+    var result;
+    if(dersSayisi && dersSuresi){
+        var isDersSayisiValid = typeof dersSayisi === "string" || typeof dersSayisi === "number"; 
+        var isDersSuresiValid = typeof dersSuresi === "string" || typeof dersSuresi === "number";
+        if(isDersSayisiValid && isDersSuresiValid){
+                 result =  dersSayisi * dersSuresi; 
+        }else{
+          console.log("Her iki parametre de sayi ya da string olmali");
+        }
+    }else{
+          result = "En az iki parametre gecilmeli";
+    }
+  console.log(result);
 }
+
+katilimSaati("3","20");
+
+
 
 
